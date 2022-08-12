@@ -2,7 +2,7 @@
 
 Write better shell scripts using NodeJS
 
-<div align="center"><img src="./docs/icons8-nutshell-100.png" /></div>
+<div align="center"><img src="https://img.icons8.com/plasticine/100/1A1A1A/nutshell.png"/></div>
 <h2 align="center">Nutshell</h2>
 <h4 align="center">Node Useful Tool for Shell</h4>
 
