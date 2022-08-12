@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "strict": false,
+    "allowJs": true,
+    "strictPropertyInitialization": false,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true
+  },
+  "exclude": ["**/**.spec*", "./jest.config.js", "./example/**", "./dist/*"]
+}
