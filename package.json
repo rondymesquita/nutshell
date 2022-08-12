@@ -10,7 +10,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "./dist/core.js",
+  "main": "./dist/globals.js",
   "bin": {
     "ns": "./dist/bin.js",
     "nutshell": "./dist/bin.js"
@@ -18,6 +18,21 @@
   "files": [
     "dist/**/*"
   ],
+  "exports": {
+    ".": "./dist/globals.js",
+    "./globals": "./dist/globals.js",
+    "./core": "./dist/core.js"
+  },
+  "typesVersions": {
+    "*": {
+      "globals": [
+        "./dist/globals.d.ts"
+      ],
+      "core": [
+        "./dist/core.d.ts"
+      ]
+    }
+  },
   "scripts": {
     "test": "jest",
     "test:watch": "npm run test -- --watchAll",
