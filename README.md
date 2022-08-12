@@ -1,9 +1,3 @@
-# Node Typescript Template
+# Nutshell
 
-## Test2
-
-A basic template project with:
-
-- Typescript
-- Jest
-- Prettier
+Node Useful Tool for Shell
