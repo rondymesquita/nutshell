@@ -2,4 +2,4 @@ import chalkModule from 'chalk'
 import fsExtraModule from 'fs-extra'
 
 export const chalk = chalkModule
-export const fsExtra = fsExtraModule
+export const fs = fsExtraModule

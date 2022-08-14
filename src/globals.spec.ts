@@ -9,6 +9,8 @@ describe('globals', () => {
         setConfig: expect.any(Function),
         ls: expect.any(Function),
         $: expect.any(Function),
+        fs: expect.any(Object),
+        chalk: expect.any(Function),
         config: expect.objectContaining({
           shell: expect.any(String),
           quiet: expect.any(Boolean),
