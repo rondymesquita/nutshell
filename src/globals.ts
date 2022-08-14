@@ -12,5 +12,5 @@ declare global {
   const config: typeof core.config
   const ls: typeof core.ls
   const chalk: typeof libs.chalk
-  const fs: typeof libs.fsExtra
+  const fs: typeof libs.fs
 }
