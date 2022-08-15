@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { config } from './core'
-import { createLogger } from './logger.factory'
+import { createLogger } from './logger'
 import './globals'
 
 const { debug } = createLogger(config)

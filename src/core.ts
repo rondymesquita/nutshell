@@ -1,13 +1,13 @@
 import { fork } from 'child_process'
 import { readdir } from 'fs-extra'
-import { createLogger } from './logger.factory'
+import { createLogger } from './logger'
 import { Config } from './models/config'
 import { exec, exportClassMembers } from './utils'
 
 export let config: Config = {
   shell: 'bash',
   quiet: false,
-  logger: 'info',
+  loggerLevel: 'debug',
 }
 
 let logger = createLogger(config)
@@ -28,24 +28,24 @@ export const $ = async (cmd: string | Array<string> | TemplateStringsArray) => {
     for (let index = 0; index < finalCmd.length; index++) {
       const cmd = finalCmd[index]
 
-      logger.verbose(`> ${cmd}`)
+      logger.input(cmd)
       const result = await exec(cmd)
-      logger.info(`< ${result.stdout}`)
+      logger.data(result.stdout)
 
       results.push(result)
     }
     return results
   } else {
-    logger.verbose(`> ${finalCmd}`)
+    logger.input(finalCmd)
     const result = await exec(finalCmd)
-    logger.info(`< ${result.stdout}`)
+    logger.data(result.stdout)
 
     return result
   }
 }
 
 export const cd = (dir: string) => {
-  logger.verbose(`cd ${dir}`)
+  logger.debug(`cd ${dir}`)
   process.chdir(dir)
 }
 
@@ -70,6 +70,6 @@ export const setConfig = (userConfig: Partial<Config>) => {
 
 export const ls = async () => {
   const stdout = await readdir(process.cwd())
-  logger.info(`< ${stdout}`)
+  logger.data(stdout)
   return stdout
 }
