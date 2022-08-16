@@ -6,7 +6,6 @@ import { exec, exportClassMembers } from './utils'
 
 export let config: Config = {
   shell: 'bash',
-  quiet: false,
   loggerLevel: 'debug',
 }
 

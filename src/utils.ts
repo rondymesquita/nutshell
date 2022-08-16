@@ -4,9 +4,10 @@ import { exec as nodeExec } from 'child_process'
 const execAsync = promisify(nodeExec)
 
 export const exec = async (cmd: string) => {
-  return await execAsync(cmd, {
-    shell: 'bash',
-  })
+  // return await execAsync(cmd, {
+  //   shell: 'bash',
+  // })
+  return await execAsync(cmd)
 }
 
 interface ExportedClassMembers {
