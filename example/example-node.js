@@ -1,5 +1,5 @@
-#!/usr/bin/env ts-node
-import '@rondymesquita/nutshell'
+#!/usr/bin/env node
+require('@rondymesquita/nutshell')
 ;(async () => {
   await $`echo "Hello"`
 
