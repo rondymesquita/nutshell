@@ -28,7 +28,7 @@ Write better shell scripts using NodeJS
 
 ## Using Typescript
 
-For using with Typescript, change intepreter for `ts-node`.
+For usage with Typescript, change intepreter to `ts-node`.
 You should have `ts-node` installed.
 
 ```ts
@@ -58,7 +58,7 @@ Inpired by [Google zx](https://github.com/google/zx), but using libraries I pref
 
 #### Motivation
 
-Sometimes, write shell scripts can be challenging, specially when we need to do conditionals, loops, reading files like JSON or YAML. Nutshell helps in these cases leveraing the knowledge in Javascript without being too far of Shell Scripts.
+Sometimes, writing shell scripts can be challenging, specially when we need to do conditionals, loops, reading files like JSON or YAML. Nutshell helps in these cases leveraing the knowledge in Javascript without being too far of Shell Scripts.
 
 <br>
 
