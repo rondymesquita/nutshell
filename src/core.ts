@@ -6,7 +6,7 @@ import { exec, exportClassMembers } from './utils'
 
 export let config: Config = {
   shell: 'bash',
-  loggerLevel: 'debug',
+  loggerLevel: 'info',
 }
 
 let logger = createLogger(config)

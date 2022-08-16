@@ -64,24 +64,21 @@ const mockFileSystem = describe('core', () => {
 
   it('should have default configuration', () => {
     expect(config).toEqual({
-      logger: 'info',
-      quiet: false,
+      loggerLevel: 'info',
       shell: 'bash',
     })
   })
 
   it('should set config', () => {
     expect(config).toEqual({
-      logger: 'info',
-      quiet: false,
+      loggerLevel: 'info',
       shell: 'bash',
     })
 
-    setConfig({ logger: 'none', shell: 'cmd' })
+    setConfig({ loggerLevel: 'none', shell: 'cmd' })
 
     expect(config).toEqual({
-      logger: 'none',
-      quiet: false,
+      loggerLevel: 'none',
       shell: 'cmd',
     })
   })
