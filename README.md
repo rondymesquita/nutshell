@@ -7,6 +7,7 @@ Write better shell scripts using NodeJS
 <h4 align="center">Node Useful Tool for Shell</h4>
 <br>
 
+Create a `example.js`
 ```ts
 #!/usr/bin/env nutshell
 
@@ -24,6 +25,11 @@ Write better shell scripts using NodeJS
     `
   })
 })()
+```
+
+Run with:
+```bash
+./example.js
 ```
 
 ## Using Typescript
@@ -56,9 +62,9 @@ import '@rondymesquita/nutshell'
 
 Inpired by [Google zx](https://github.com/google/zx), but using libraries I prefer.
 
-#### Motivation
+### Motivation
 
-Sometimes, writing shell scripts can be challenging, specially when we need to do conditionals, loops, reading files like JSON or YAML. Nutshell helps in these cases leveraing the knowledge in Javascript without being too far of Shell Scripts.
+Sometimes, writing shell scripts can be challenging, specially when we need to do conditionals, loops, reading files like JSON or YAML. Nutshell helps in these cases leveraging the knowledge in Javascript without being too far of Shell Scripts.
 
 <br>
 
