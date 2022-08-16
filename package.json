@@ -46,12 +46,8 @@
   "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.0",
-    "colorette": "^2.0.19",
     "fs-extra": "^10.1.0",
     "globby": "^13.1.2",
-    "pino": "^8.4.1",
-    "pino-abstract-transport": "^1.0.0",
-    "pino-pretty": "^9.0.0",
     "winston": "^3.8.1",
     "yaml": "^2.1.1",
     "yargs": "^17.5.1"
