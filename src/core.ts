@@ -12,7 +12,7 @@ export let config: Config = {
 
 let logger = createLogger(config)
 
-export const $ = async (cmd: string | Array<string> | TemplateStringsArray) => {
+const prepareCommand = (cmd: string | Array<string> | TemplateStringsArray) => {
   let finalCmd: string | Array<string>
   if (typeof cmd === 'object') {
     finalCmd = cmd[0]
@@ -22,6 +22,12 @@ export const $ = async (cmd: string | Array<string> | TemplateStringsArray) => {
   } else {
     finalCmd = cmd.trim()
   }
+
+  return finalCmd
+}
+
+export const $ = async (cmd: string | Array<string> | TemplateStringsArray) => {
+  const finalCmd = prepareCommand(cmd)
 
   if (typeof finalCmd === 'object') {
     const results = []
@@ -57,8 +63,9 @@ export const withContext = async (fn: Function) => {
     childProcess.on('close', (exitCode) => {
       resolve({ exitCode })
     })
-    childProcess.on('error', (exitCode) => {
-      reject({ exitCode })
+    childProcess.on('error', (error: Error) => {
+      logger.error(error)
+      reject(error)
     })
   })
 }
@@ -69,7 +76,9 @@ export const setConfig = (userConfig: Partial<Config>) => {
 }
 
 export const ls = async () => {
+  logger.input('ls')
   const stdout = await readdir(process.cwd())
   logger.data(stdout)
+
   return stdout
 }

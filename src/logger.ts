@@ -5,6 +5,7 @@ import {
   format,
   Logger,
   transports,
+  LoggerOptions,
 } from 'winston'
 
 const colors = {
@@ -16,15 +17,30 @@ const colors = {
   trace: white,
 }
 
-const simpleLog = format.printf(({ level, message }) => {
+const simpleLog = format.printf((context) => {
+  const { level, message } = context
   const color = colors[level]
   return `${color(message)}`
 })
 
+const handleArrayObject = (message: any) => {
+  let finalMessage = message
+
+  if (typeof message === 'object') {
+    finalMessage = JSON.stringify(message, null, 2)
+  }
+
+  return finalMessage
+}
+
 const completeLog = format.printf((context) => {
   const { level, message, timestamp } = context
   const color = colors[level]
-  return `${timestamp} [${color(level.toUpperCase())}]: ${color(message)}`
+  // console.log(context)
+
+  const finalMessage = handleArrayObject(message)
+
+  return `${timestamp} [${color(level.toUpperCase())}]: ${color(finalMessage)}`
 })
 
 const traceLog = format.printf((context) => {
@@ -53,8 +69,6 @@ const createLoggerFormat = (config: Config) => {
   )
 }
 
-class CustomLogger extends Logger {}
-
 export const createLogger = (config: Config) => {
   const logger = createWinstonLogger({
     levels: {
@@ -70,5 +84,5 @@ export const createLogger = (config: Config) => {
     transports: [new transports.Console()],
   })
 
-  return logger as CustomLogger
+  return logger
 }
