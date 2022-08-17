@@ -7,19 +7,11 @@ import {
 } from 'winston'
 
 const colors = {
-  info: green,
-  data: green,
-  debug: blue,
-  input: blue,
   error: red,
-  trace: white,
+  info: green,
+  verbose: blue,
+  debug: blue,
 }
-
-const simpleLog = format.printf((context) => {
-  const { level, message } = context
-  const color = colors[level]
-  return `${color(message)}`
-})
 
 const handleArrayObject = (message: any) => {
   let finalMessage = message
@@ -31,35 +23,39 @@ const handleArrayObject = (message: any) => {
   return finalMessage
 }
 
+const simpleLog = format.printf((context) => {
+  const { level, message } = context
+  const color = colors[level]
+  const finalMessage = handleArrayObject(message)
+  return `${color(finalMessage)}`
+})
+
 const completeLog = format.printf((context) => {
   const { level, message, timestamp } = context
   const color = colors[level]
-  // console.log(context)
 
   const finalMessage = handleArrayObject(message)
-
   return `${timestamp} [${color(level.toUpperCase())}]: ${color(finalMessage)}`
 })
 
-const traceLog = format.printf((context) => {
+const debugLog = format.printf((context) => {
   const { level, message, timestamp, ms } = context
   const color = colors[level]
-  return `${timestamp} [${color(level.toUpperCase())}]: ${ms} ${color(message)}`
+  const finalMessage = handleArrayObject(message)
+  return `${timestamp} [${color(level.toUpperCase())}]: ${ms} ${color(
+    finalMessage,
+  )}`
 })
 
 const createLoggerFormat = (config: Config) => {
   const logFormats = {
     error: completeLog,
-    data: simpleLog,
     info: simpleLog,
-    input: completeLog,
-    debug: completeLog,
-    trace: traceLog,
+    verbose: completeLog,
+    debug: debugLog,
   }
 
   const logFormat = logFormats[config.loggerLevel]
-
-  // console.log('>>>>>', { winstonFormat })
 
   return format.combine(
     format.splat(),
@@ -73,13 +69,12 @@ export const createLogger = (config: Config) => {
   const logger = createWinstonLogger({
     levels: {
       error: 1,
-      data: 2,
-      info: 3,
-      input: 4,
-      debug: 5,
-      trace: 6,
+      info: 2,
+      verbose: 3,
+      debug: 4,
     },
-    level: config.loggerLevel,
+    level: config.loggerLevel !== 'none' ? config.loggerLevel : 'info',
+    silent: config.loggerLevel === 'none',
     format: createLoggerFormat(config),
     transports: [new transports.Console()],
   })

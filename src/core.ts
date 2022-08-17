@@ -33,17 +33,17 @@ export const $ = async (cmd: string | Array<string> | TemplateStringsArray) => {
     for (let index = 0; index < finalCmd.length; index++) {
       const cmd = finalCmd[index]
 
-      logger.input(cmd)
+      logger.verbose(cmd)
       const result = await exec(cmd)
-      logger.data(result.stdout)
+      logger.info(result.stdout)
 
       results.push(result)
     }
     return results
   } else {
-    logger.input(finalCmd)
+    logger.verbose(finalCmd)
     const result = await exec(finalCmd)
-    logger.data(result.stdout)
+    logger.info(result.stdout)
 
     return result
   }
@@ -75,9 +75,9 @@ export const setConfig = (userConfig: Partial<Config>) => {
 }
 
 export const ls = async () => {
-  logger.input('ls')
+  logger.verbose('ls')
   const stdout = await readdir(process.cwd())
-  logger.data(stdout)
+  logger.info(stdout)
 
   return stdout
 }
