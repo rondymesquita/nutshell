@@ -1,4 +1,3 @@
-// import { describe, expect, test as it } from 'vitest'
 import { $, cd, config, setConfig, ls } from './core'
 import { exec as execMock } from './utils'
 import path from 'path'
@@ -12,7 +11,18 @@ jest.mock('./utils', () => {
   }
 })
 
-const mockFileSystem = describe('core', () => {
+jest.mock('./logger', () => ({
+  createLogger: jest.fn(() => ({
+    debug: jest.fn(),
+    info: jest.fn(),
+    error: jest.fn(),
+    trace: jest.fn(),
+    data: jest.fn(),
+    input: jest.fn(),
+  })),
+}))
+
+describe('core', () => {
   it('should execute a single line command', async () => {
     ;(execMock as jest.Mock).mockResolvedValueOnce({
       stderr: '',

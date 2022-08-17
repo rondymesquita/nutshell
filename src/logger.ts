@@ -3,9 +3,7 @@ import { blue, green, red, white } from 'chalk'
 import {
   createLogger as createWinstonLogger,
   format,
-  Logger,
   transports,
-  LoggerOptions,
 } from 'winston'
 
 const colors = {
@@ -60,6 +58,8 @@ const createLoggerFormat = (config: Config) => {
   }
 
   const logFormat = logFormats[config.loggerLevel]
+
+  // console.log('>>>>>', { winstonFormat })
 
   return format.combine(
     format.splat(),
