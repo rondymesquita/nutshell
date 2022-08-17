@@ -5,24 +5,17 @@ import {
   format,
   transports,
 } from 'winston'
+import { LOGGER_DONE } from './logmessages'
 
 const colors = {
-  info: green,
-  data: green,
-  debug: blue,
-  input: blue,
   error: red,
-  trace: white,
+  info: green,
+  verbose: blue,
+  debug: blue,
 }
 
-const simpleLog = format.printf((context) => {
-  const { level, message } = context
-  const color = colors[level]
-  return `${color(message)}`
-})
-
 const handleArrayObject = (message: any) => {
-  let finalMessage = message
+  let finalMessage = message || ''
 
   if (typeof message === 'object') {
     finalMessage = JSON.stringify(message, null, 2)
@@ -31,35 +24,54 @@ const handleArrayObject = (message: any) => {
   return finalMessage
 }
 
-const completeLog = format.printf((context) => {
-  const { level, message, timestamp } = context
+const buildLogMessage = (context, formatFn) => {
+  const { level, message, timestamp, ms } = context
+  // @ts-ignore
+  const splat = context[Symbol.for('splat')]
+
   const color = colors[level]
-  // console.log(context)
 
-  const finalMessage = handleArrayObject(message)
+  const parsedContext = {
+    timestamp,
+    level: color(level.toUpperCase()),
+    ms,
+    message: color(handleArrayObject(message)),
+    splat: handleArrayObject(splat),
+  }
 
-  return `${timestamp} [${color(level.toUpperCase())}]: ${color(finalMessage)}`
+  return formatFn(parsedContext)
+}
+
+const simpleLog = format.printf((context) => {
+  return buildLogMessage(context, ({ timestamp, level, message, splat }) => {
+    return `${message}`
+  })
 })
 
-const traceLog = format.printf((context) => {
-  const { level, message, timestamp, ms } = context
-  const color = colors[level]
-  return `${timestamp} [${color(level.toUpperCase())}]: ${ms} ${color(message)}`
+const completeLog = format.printf((context) => {
+  return buildLogMessage(context, ({ timestamp, level, message, splat }) => {
+    return `${timestamp} [${level}]: ${message} ${splat}`
+  })
+})
+
+const debugLog = format.printf((context) => {
+  return buildLogMessage(
+    context,
+    ({ timestamp, level, ms, message, splat }) => {
+      return `${timestamp} [${level}]: ${ms} ${message} ${splat}`
+    },
+  )
 })
 
 const createLoggerFormat = (config: Config) => {
   const logFormats = {
     error: completeLog,
-    data: simpleLog,
     info: simpleLog,
-    input: completeLog,
-    debug: completeLog,
-    trace: traceLog,
+    verbose: completeLog,
+    debug: debugLog,
   }
 
-  const logFormat = logFormats[config.loggerLevel]
-
-  // console.log('>>>>>', { winstonFormat })
+  const logFormat = logFormats[config.loggerLevel] || simpleLog
 
   return format.combine(
     format.splat(),
@@ -73,16 +85,17 @@ export const createLogger = (config: Config) => {
   const logger = createWinstonLogger({
     levels: {
       error: 1,
-      data: 2,
-      info: 3,
-      input: 4,
-      debug: 5,
-      trace: 6,
+      info: 2,
+      verbose: 3,
+      debug: 4,
     },
-    level: config.loggerLevel,
+    level: config.loggerLevel !== 'none' ? config.loggerLevel : 'info',
+    silent: config.loggerLevel === 'none',
     format: createLoggerFormat(config),
     transports: [new transports.Console()],
   })
+
+  // logger.verbose(LOGGER_DONE)
 
   return logger
 }

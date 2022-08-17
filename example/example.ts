@@ -1,5 +1,9 @@
 #!/usr/bin/env ts-node
 import '@rondymesquita/nutshell'
+
+setConfig({
+  loggerLevel: 'debug',
+})
 ;(async () => {
   await $`echo "Hello"`
 
