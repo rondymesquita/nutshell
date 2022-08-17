@@ -13,8 +13,7 @@ describe('globals', () => {
         chalk: expect.any(Function),
         config: expect.objectContaining({
           shell: expect.any(String),
-          quiet: expect.any(Boolean),
-          logger: expect.any(String),
+          loggerLevel: expect.any(String),
         }),
       }),
     )

@@ -13,4 +13,6 @@ import '@rondymesquita/nutshell'
       echo "in a separated process"
     `
   })
+
+  await ls()
 })()
