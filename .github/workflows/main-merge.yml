@@ -33,6 +33,12 @@ jobs:
       - run: npm run test
       - run: npm run build
       - run: npm pack
+      - run: npm run docs
+      - name: Deploy Docs
+        uses: JamesIves/github-pages-deploy-action@4.1.5
+        with:
+          branch: gh-pages-docs # The branch the action should deploy to.
+          folder: ./typedoc # The folder the action should deploy.
       - run: npm run release
       - uses: JS-DevTools/npm-publish@v1
         with:

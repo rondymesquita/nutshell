@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-import { config } from './core'
+import { DEFAULT_CONFIG } from './coredefaults'
 import { createLogger } from './logger'
 import './globals'
 
-const { debug } = createLogger(config)
+const { debug } = createLogger(DEFAULT_CONFIG)
 ;(async () => {
   const callerPath = process.cwd()
   const callerFile = process.argv[2]

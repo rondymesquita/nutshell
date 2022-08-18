@@ -4,7 +4,8 @@
   "description": "",
   "main": "example.js",
   "scripts": {
-    "dev:ts": "nodemon -w ../src -w example.ts -i ../src/__fixtures__/  ./example.ts"
+    "dev:ts": "nodemon -w ../src -w example.ts -i ../src/__fixtures__/  ./example.ts",
+    "link": "npm uninstall --save @rondymesquita/nutshell && npm link --save ../"
   },
   "keywords": [],
   "author": "",
