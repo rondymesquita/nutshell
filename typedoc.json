@@ -1,0 +1,8 @@
+{
+  "entryPoints": ["src/globals.ts"],
+  "out": "typedoc",
+  "exclude": ["src/**/*spec.ts", "src/coredefaults.ts", "src/**/__fixtures__"],
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "excludeInternal": false
+}

@@ -1,4 +1,5 @@
 import { $, cd, config, setConfig, ls } from './core'
+import { DEFAULT_CONFIG } from './coredefaults'
 import { exec as execMock } from './utils'
 import path from 'path'
 
@@ -71,23 +72,28 @@ describe('core', () => {
   })
 
   it('should have default configuration', () => {
-    expect(config).toEqual({
+    expect(DEFAULT_CONFIG).toEqual({
       loggerLevel: 'info',
       shell: 'bash',
     })
   })
 
-  it('should set config', () => {
-    expect(config).toEqual({
+  it('should set configuration', () => {
+    expect(DEFAULT_CONFIG).toEqual({
       loggerLevel: 'info',
       shell: 'bash',
     })
 
-    setConfig({ loggerLevel: 'none', shell: 'cmd' })
+    setConfig({ loggerLevel: 'none' })
+
+    expect(DEFAULT_CONFIG).toEqual({
+      loggerLevel: 'info',
+      shell: 'bash',
+    })
 
     expect(config).toEqual({
       loggerLevel: 'none',
-      shell: 'cmd',
+      shell: 'bash',
     })
   })
 
